@@ -1,0 +1,37 @@
+$font: (
+  body : (
+    family          : (Arial, Helvetica, sans-serif),
+    weight          : normal,
+    weight-bold     : bold,
+    text-transform  : inherit
+  ),
+  heading : (
+    family          : (Arial, Helvetica, sans-serif),
+    weight          : bold,
+    weight-bold     : bold,
+    text-transform  : inherit
+  ),
+  subheading : (
+    family          : (Arial, Helvetica, sans-serif),
+    weight          : bold,
+    weight-bold     : bold,
+    text-transform  : inherit
+  ),
+  decorative : (
+    family          : (Arial, Helvetica, sans-serif),
+    weight          : normal,
+    weight-bold     : bold,
+    text-transform  : inherit
+  ),
+  iconic : (
+    family          : FontAwesome,
+    style           : normal,
+    weight          : normal
+  ),
+  mono : (
+    family          : ('Courier New', monospace),
+    weight          : normal,
+    weight-bold     : bold,
+    text-transform  : inherit
+  )
+);

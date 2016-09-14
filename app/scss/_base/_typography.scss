@@ -1,0 +1,69 @@
+//$body-font-size: 1em !default;
+//$body-line-height: golden-ratio(1em, 1) !default;
+//$body-font-family: $helvetica !default;
+//
+//body {
+//  font: $body-font-size $body-font-family;
+//  line-height: $body-line-height;
+//}
+
+body, input, select, textarea {
+	color: _palette(base, foreground);
+	font-family: _font(body, family);
+	font-size: 12pt;
+	font-weight: _font(body, weight);
+	line-height: 1.65;
+}
+
+
+// Hyperlinks
+a {
+	color: _palette(base, accent);
+	text-decoration: none;
+	border-bottom: 1px solid rgba(_palette(base, accent), .3);
+}
+
+.link {
+	@at-root #{&}--muted {
+		color: _palette(base, foreground);
+		border-bottom: 1px solid rgba(_palette(base, foreground), .3);
+
+		&:hover {
+			border-bottom-color: rgba(_palette(base, foreground), .9);
+		}
+	}
+
+	@at-root #{&}--no-decoration {
+		border-bottom: none;
+	}
+}
+
+// Subscript & Superscript
+sub {
+	font-size: 0.8em;
+	position: relative;
+	top: 0.5em;
+}
+
+sup {
+	font-size: 0.8em;
+	position: relative;
+	top: -0.5em;
+}
+
+// Standalone classes
+.caps {
+	text-transform: uppercase;
+}
+
+.align-left {
+	text-align: left;
+}
+
+.align-center {
+	text-align: center;
+}
+
+.align-right {
+	text-align: right;
+}

@@ -1,0 +1,13 @@
+doctype html
+html
+    include _common/_head
+
+    body
+        .maincontent-new-new
+            block content
+        // build:js js/plugins.main.min.js
+        script(src='../../bower_components/jquery.js')
+        script(src='../../bower_components/jquery.cover.js')
+        // endbuild
+
+        header

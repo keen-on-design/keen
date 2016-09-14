@@ -1,0 +1,24 @@
+{
+  "name": "keen-boilerplate",
+  "description": "",
+  "main": "index.html",
+  "authors": [
+    "keen-on-design"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/keen-on-design/boilerplate",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.0",
+    "bourbon": "^4.2.7",
+    "neat": "^1.8.0"
+  }
+}
