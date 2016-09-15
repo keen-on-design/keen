@@ -1,13 +1,17 @@
 doctype html
-html
+html(lang="ru")
     include _common/_head
-
     body
+        include _common/_header
+
         .maincontent-new-new
             block content
+
         // build:js js/plugins.main.min.js
         script(src='../../bower_components/jquery.js')
         script(src='../../bower_components/jquery.cover.js')
+        script(src='../../bower_components/gsap/src/uncompressed/jquery.gsap.js')
+
         // endbuild
 
         header
