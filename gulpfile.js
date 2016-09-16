@@ -32,14 +32,14 @@ var paths = {
     },
 
     scss : {
-        location    : src + 'scss/**/*.scss',
-        entryPoint  : src + 'scss/style.scss',
+        location    : src  + 'scss/**/*.scss',
+        entryPoint  : src  + 'scss/style.scss',
         destination : dest + 'css'
     },
 
     js : {
-        location    : src + 'js/**/*.js',
-        entryPoint  : src + 'js/main.js',
+        location    : src  + 'js/**/*.js',
+        entryPoint  : src  + 'js/main.js',
         destination : dest + 'js'
     },
 
@@ -48,8 +48,6 @@ var paths = {
         watchPaths : ['build/*.html', 'build/css/*.css', 'build/js/*.js']
     }
 };
-
-
 
 // ------- pug task ---------
 gulp.task('pug', function() {
@@ -62,8 +60,10 @@ gulp.task('pug', function() {
         .pipe(gulpif('*.js', uglify()))
         .pipe(gulpif('*.css', cssnano()))
         .pipe(useref())
-        .pipe(gulp.dest(paths.pug.destination));
+        .pipe(gulp.dest(paths.pug.destination))
+    ;
 });
+
 
 // ------- sass task ---------
 gulp.task('sass', function() {
@@ -75,13 +75,8 @@ gulp.task('sass', function() {
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(paths.scss.destination))
         .pipe(browserSync.stream())
-      // .pipe(sass({style: 'compressed'}))
-      // .pipe(cssnano())
-      // .pipe(rename({suffix: '.min'}))
-
-      ;
+    ;
 });
-
 
 
 // ---------- js task ----------
@@ -98,64 +93,27 @@ gulp.task('scripts', function(){
 });
 
 
-
 // --------- images task --------------
 gulp.task('images', function() {
     return gulp.src(src + 'images/**/*')
         .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
-        .pipe(gulp.dest(dest + 'img'));
-});
-
-///////////
-gulp.task('browserSync', function() {
-    browserSync.init({
-        server: {
-            baseDir: root
-        }
-    })
+        .pipe(gulp.dest(dest + 'img'))
+    ;
 });
 
 
-// gulp.task('bower-js', function() {
-//     var mainFiles = mainBowerFiles();
-//     console.log(mainFiles);
-//     return gulp.src(mainFiles)
-//         .pipe(filter('**/*.js'))
-//         .pipe(gulp.dest(src + 'js'));
-// });
+gulp.task('fonts', function() {
+    return gulp.src(src + 'fonts/**/*.{ttf,woff,woff2,eof,svg}')
+        .pipe(gulp.dest(dest + 'fonts'))
+    ;
+});
 
-// Concatenate & Minify JS
-// gulp.task('scripts', function() {
-//     return gulp.src(src + 'js/*.js')
-//         .pipe(plumber())
-//         .pipe(concat('app.js'))
-//         .pipe(rename({suffix: '.min'}))
-//         .pipe(uglify())
-//         .pipe(gulp.dest(dest + 'js'))
-//         .pipe(browserSync.reload({
-//             stream: true
-//         }));
-// });
 
 // Watch for changes in files
 gulp.task('watch', function() {
     gulp.watch(paths.pug.location, gulp.series('pug'));
     gulp.watch(paths.scss.location, gulp.series('sass'));
     gulp.watch(paths.js.location, gulp.series('scripts'));
-    // // Watch bower vendors
-    // gulp.watch('../vendor/**/*.js', ['bower-js']);
-    //
-    // // Watch .html files
-    // gulp.watch(root + '*.html', browserSync.reload);
-    //
-    // // Watch .js files
-    // gulp.watch(src + 'js/*.js', ['scripts']);
-    //
-    // // Watch .scss files
-    // gulp.watch(src + 'scss/**/*.scss', ['sass']);
-    //
-    // // Watch image files
-    // gulp.watch(src + 'images/**/*', ['images']);
 });
 
 gulp.task('serve', function() {
@@ -176,13 +134,13 @@ gulp.task('clean', function(cb) {
 
 
 // -------- Default Task -----------
-// gulp.task('default', ['pug', 'sass', 'browserSync', 'watch', 'serve']);
 gulp.task('default', gulp.series(
     'clean',
     gulp.parallel (
         'pug',
         'sass',
-        'scripts'
+        'scripts',
+        'fonts'
     ),
     gulp.parallel(
         'watch',
