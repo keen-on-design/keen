@@ -1,11 +1,4 @@
-//$body-font-size: 1em !default;
-//$body-line-height: golden-ratio(1em, 1) !default;
-//$body-font-family: $helvetica !default;
-//
-//body {
-//  font: $body-font-size $body-font-family;
-//  line-height: $body-line-height;
-//}
+@include font-face("pf_dindisplay_proregular", "../fonts/pfdin/pfdindisplaypro-reg-webfont", normal, normal, $file-formats: woff2 woff);
 
 body, input, select, textarea {
 	color: _palette(base, foreground);
@@ -15,27 +8,11 @@ body, input, select, textarea {
 	line-height: 1.65;
 }
 
-
 // Hyperlinks
 a {
 	color: _palette(base, accent);
 	text-decoration: none;
 	border-bottom: 1px solid rgba(_palette(base, accent), .3);
-}
-
-.link {
-	@at-root #{&}--muted {
-		color: _palette(base, foreground);
-		border-bottom: 1px solid rgba(_palette(base, foreground), .3);
-
-		&:hover {
-			border-bottom-color: rgba(_palette(base, foreground), .9);
-		}
-	}
-
-	@at-root #{&}--no-decoration {
-		border-bottom: none;
-	}
 }
 
 // Subscript & Superscript
