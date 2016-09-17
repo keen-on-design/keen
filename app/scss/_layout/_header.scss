@@ -1,6 +1,7 @@
 header {
 	width: 100%;
-	background-color: #ccc;
+	position: fixed;
+	z-index: 1000;
 
 	ul {
 		padding: 0;
@@ -40,11 +41,10 @@ header {
 
 	//width: 100%;
 	flex-grow: 1;
-	padding: 0 0 0 10%;
+	padding: 0 0 0 16%;
 	overflow: hidden;
 
 	ul {
-		//background-color: #5a1321;
 		overflow: hidden;
 		padding: 0;
 		margin: 0;
@@ -61,8 +61,48 @@ header {
 			&:last-child {
 				width: 19%;
 			}
+
 		}
 	}
+
+	a {
+		color : _palette(base, background);
+		position: relative;
+		display: inline-block;
+
+		&:after {
+			content: "";
+			display: block;
+			height: 2px;
+			width: 100%;
+			background-color: _palette(base, background);
+			position: absolute;
+			bottom: 50%;
+			opacity: 0;
+		}
+
+		&:hover {
+			&:after {
+				bottom: 0;
+				opacity: 1;
+			}
+		}
+
+		&.active {
+			&:after {
+				bottom: 50%;
+				opacity: 1;
+			}
+
+			&:hover {
+				&:after {
+					bottom: 50%;
+					opacity: 1;
+				}
+			}
+		}
+	}
+
 }
 
 .header__side-nav {
@@ -73,6 +113,10 @@ header {
 		> li {
 			font-size: .9rem;
 			margin-right: 15px;
+
+			a {
+				color : _palette(base, foreground);
+			}
 		}
 	}
 }
