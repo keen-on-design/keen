@@ -21,7 +21,21 @@ var gulp            = require('gulp'),
     filter          = require('gulp-filter'),
     useref          = require('gulp-useref'),
     rimraf          = require('rimraf'),
+    svgSprite       = require('gulp-svg-sprite'),
+    svgmin          = require('gulp-svgmin'),
+    cheerio         = require('gulp-cheerio'),
+    replace         = require('gulp-replace'),
     browserSync     = require('browser-sync').create();
+
+// Svg sprite config
+var svgSprite_config = {
+    mode : {
+        symbol              : {
+            example         : true
+        }
+    },
+};
+
 
 // Paths
 var paths = {
@@ -87,7 +101,7 @@ gulp.task('scripts', function(){
             insertGlobals : true,
             debug : true
         }))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(rename('main.min.js'))
         .pipe(gulp.dest(paths.js.destination));
 });
@@ -102,6 +116,37 @@ gulp.task('images', function() {
 });
 
 
+// --------- SVG task --------------
+gulp.task('svg', function() {
+    return gulp.src(src + '**/*.svg')
+        // minify svg
+        .pipe(svgmin({
+            js2svg: {
+                pretty: true
+            }
+        }))
+
+        // remove all fill and style declarations in out shapes
+        .pipe(cheerio({
+            run: function ($) {
+                $('[fill]').removeAttr('fill');
+                $('[style]').removeAttr('style');
+            },
+            parserOptions: { xmlMode: true }
+        }))
+
+        // cheerio plugin create unnecessary string '>', so replace it.
+        .pipe(replace('&gt;', '>'))
+
+        // build svg sprite
+        .pipe(svgSprite(svgSprite_config))
+
+        .pipe(gulp.dest(dest + 'icons/'))
+    ;
+});
+
+
+// --------- fonts task --------------
 gulp.task('fonts', function() {
     return gulp.src(src + 'fonts/**/*.{ttf,woff,woff2,eof,svg}')
         .pipe(gulp.dest(dest + 'fonts'))
@@ -140,6 +185,7 @@ gulp.task('default', gulp.series(
         'pug',
         'sass',
         'scripts',
+        'svg',
         'fonts'
     ),
     gulp.parallel(
