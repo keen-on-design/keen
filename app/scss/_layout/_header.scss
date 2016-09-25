@@ -34,7 +34,9 @@ header {
 	width: 80px;
 	height: 30px;
 
-	background-color: #009CDE;
+	svg {
+		fill: #fff;
+	}
 }
 
 .header__nav {
@@ -74,11 +76,16 @@ header {
 			content: "";
 			display: block;
 			height: 2px;
-			width: 100%;
+			width: 94%;
+			left: 3%;
 			background-color: _palette(base, background);
 			position: absolute;
 			bottom: 50%;
 			opacity: 0;
+
+			@include transition-property(bottom, opacity);
+			@include transition-duration(.2s);
+			@include transition-timing-function(ease-out);
 		}
 
 		&:hover {
@@ -115,7 +122,7 @@ header {
 			margin-right: 15px;
 
 			a {
-				color : _palette(base, foreground);
+				color: _palette(base, foreground);
 			}
 		}
 	}
@@ -125,7 +132,33 @@ header {
 		margin-right: 40px;
 }
 
-.side-nav__lang > li:last-child {
-	margin-right: 0;
+.side-nav__lang {
+
+	a {
+		text-transform: uppercase;
+		font-size: .75rem;
+		display: inline-block;
+		position: relative;
+
+		&:after {
+			content: "";
+			display: block;
+			height: 2px;
+			width: 94%;
+			left: 3%;
+			background-color: _palette(base, foreground);
+			position: absolute;
+			bottom: 50%;
+			opacity: 1;
+
+			@include transition-property(bottom, opacity);
+			@include transition-duration(.2s);
+			@include transition-timing-function(ease-out);
+		}
+	}
+
+	& > li:last-child {
+		margin-right: 0;
+	}
 }
 
